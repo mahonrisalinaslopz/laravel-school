@@ -6,11 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Semester extends Model
+class Career extends Model
 {
     use HasFactory;
-
-    public function careers(): HasMany
+    public function courses(): HasMany
     {
         return $this->hasMany(Course::class);
     }

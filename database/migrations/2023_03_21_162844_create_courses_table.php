@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
+            $table->string("name");
+            $table->text("description")->nullable();
+            $table->text("link")->nullable();
+            $table->foreignId("career_id")->nullable()->constrained("careers");
+            $table->foreignId("semester_id")->nullable()->constrained("semesters");
             $table->timestamps();
         });
     }
