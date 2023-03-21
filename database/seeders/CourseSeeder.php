@@ -22,14 +22,14 @@ class CourseSeeder extends Seeder
             ["JavaScript VI", "Leguaje inicial para aprender programacion", "http://zoom.us", "1", "6"],
             ["JavaScript VII", "Leguaje inicial para aprender programacion", "http://zoom.us", "1", "7"],
             ["JavaScript VII", "Leguaje inicial para aprender programacion", "http://zoom.us", "1", "8"],
-            ["PHP I", "Leguaje inicial para aprender programacion Backend", "http://zoom.us", "1", "1"],
-            ["PHP II", "Leguaje inicial para aprender programacion Backend", "http://zoom.us", "1", "2"],
-            ["PHP III", "Leguaje inicial para aprender programacion Backend", "http://zoom.us", "1", "3"],
-            ["PHP IV", "Leguaje inicial para aprender programacion Backend", "http://zoom.us", "1", "4"],
-            ["PHP V", "Leguaje inicial para aprender programacion Backend", "http://zoom.us", "1", "5"],
-            ["PHP VI", "Leguaje inicial para aprender programacion Backend", "http://zoom.us", "1", "6"],
-            ["PHP VII", "Leguaje inicial para aprender programacion Backend", "http://zoom.us", "1", "7"],
-            ["PHP VIII", "Leguaje inicial para aprender programacion Backend", "http://zoom.us", "1", "8"],
+            ["PHP I", "Leguaje inicial para aprender programacion Backend", "http://zoom.us", "2", "1"],
+            ["PHP II", "Leguaje inicial para aprender programacion Backend", "http://zoom.us", "2", "2"],
+            ["PHP III", "Leguaje inicial para aprender programacion Backend", "http://zoom.us", "2", "3"],
+            ["PHP IV", "Leguaje inicial para aprender programacion Backend", "http://zoom.us", "2", "4"],
+            ["PHP V", "Leguaje inicial para aprender programacion Backend", "http://zoom.us", "2", "5"],
+            ["PHP VI", "Leguaje inicial para aprender programacion Backend", "http://zoom.us", "2", "6"],
+            ["PHP VII", "Leguaje inicial para aprender programacion Backend", "http://zoom.us", "2", "7"],
+            ["PHP VIII", "Leguaje inicial para aprender programacion Backend", "http://zoom.us", "2", "8"],
         ];
         foreach ($courses as $course) {
             Course::create(
