@@ -11,7 +11,7 @@ class Course extends Model
     use HasFactory;
     public function career(): BelongsTo
     {
-        return $this->belongsTo(Career::class, "carrer_id");
+        return $this->belongsTo(Career::class, "career_id");
     }
     public function semester(): BelongsTo
     {
