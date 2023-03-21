@@ -10,7 +10,7 @@ class Semester extends Model
 {
     use HasFactory;
 
-    public function careers(): HasMany
+    public function courses(): HasMany
     {
         return $this->hasMany(Course::class);
     }
