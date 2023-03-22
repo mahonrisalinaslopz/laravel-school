@@ -2,20 +2,20 @@
 <html lang="en">
 
 <head>
-    @include('Backend.Layout.common-head')
+    @include('frontend.Layout.common-head')
 </head>
 
 <body class="g-sidenav-show  bg-gray-200">
 
-    @include('Backend.Layout.sidebar')
+    @include('frontend.Layout.sidebar')
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
-        @include('Backend.Layout.header')
+        @include('frontend.Layout.header')
         @section('main-content')
         @show
-        @include('Backend.Layout.footer')
+        @include('frontend.Layout.footer')
     </main>
-    
-        @include('Backend.Layout.common-end')
+
+        @include('frontend.Layout.common-end')
         @stack('custom-scripts')
 </body>
 
