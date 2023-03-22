@@ -11,7 +11,7 @@ class CareerController extends Controller
     public function index()
     {
         $data = Career::all();
-        
+
         return View("career.index", ["data" => $data]);
     }
 
@@ -20,7 +20,7 @@ class CareerController extends Controller
      */
     public function create()
     {
-        //
+        return View("career.create");
     }
 
     /**
@@ -28,7 +28,11 @@ class CareerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Career::create([
+            "name" => $request->name,
+            "description" => $request->description,
+        ]);
+        return View("career.index")->with("status", "Registro Creado");
     }
 
     /**
@@ -36,7 +40,8 @@ class CareerController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $career = Career::find($id);
+        return View("career.show", ["career" => $career]);
     }
 
     /**
@@ -44,7 +49,8 @@ class CareerController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $career = Career::find($id);
+        return View("career.edit", ["career" => $career]);
     }
 
     /**
@@ -52,7 +58,14 @@ class CareerController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $career = Career::find($id);
+        $career->update(
+            [
+                "name" => $request->name,
+                "description" => $request->description,
+            ]
+        );
+        return View("career.index")->with("status", "Registro Actualizado");
     }
 
     /**
@@ -60,6 +73,7 @@ class CareerController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $career = Career::find($id);
+        return View("career.index")->with("status", "Registro Borrado");
     }
 }
