@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\CareerController;
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SemesterController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,4 +31,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+Route::controller(CareerController::class)->group(function () {
+    Route::get('/careers', 'index');
+});
+Route::controller(CourseController::class)->group(function () {
+    Route::get('/courses', 'index');
+});
+Route::controller(SemesterController::class)->group(function () {
+    Route::get('/semesters', 'index');
+});
+
+require __DIR__ . '/auth.php';
