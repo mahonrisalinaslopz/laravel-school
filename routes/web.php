@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Frontend\AdminController;
+use App\Http\Controllers\Frontend\UserController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,6 +28,7 @@ Route::middleware(['auth','verified'])->group(function() {
     // Route::get('dashboard',[AdminController::class,'dashboard']);
     Route::resource('dashboard', AdminController::class)->only("index")->names("admin");
     Route::delete('dashboard/logout', [AdminController::class, 'logout'])->name("logout_user");
+    Route::resource('users', UserController::class)->names("users");
 });
 
 

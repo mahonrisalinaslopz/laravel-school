@@ -2,6 +2,8 @@
 <html lang="en">
 
 <head>
+    <script src="cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css"></script>
+    <script src="cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css"></script>
     @include('frontend.Layout.common-head')
 </head>
 
