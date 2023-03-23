@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Frontend;
+namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -11,7 +11,7 @@ class AdminController extends Controller
 {
     public function index()
     {
-        return view('Frontend.dashboard');
+        return view('frontend.dashboard');
     }
 
     public function logout()

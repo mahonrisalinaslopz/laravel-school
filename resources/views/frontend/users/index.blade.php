@@ -1,5 +1,10 @@
 @extends('frontend.Layout.app')
 @section('main-content')
+<div class="card text-left">
+  
+  <div class="card-body">
+    
+ 
     <table id="users" class="table table-striped" >
         <thead>
             <tr>
@@ -16,12 +21,19 @@
             @endforeach
         </tbody>
     </table>
+    </div>
+</div>
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.4.1/js/responsive.bootstrap5.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('#users').DataTable();
+            $('#users').DataTable( {
+                responsive: true,
+                autoWidth:false
+            } );
         });
     </script>
 @endsection
