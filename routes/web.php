@@ -1,8 +1,14 @@
 <?php
 
+
+use App\Http\Controllers\CareerController;
+use App\Http\Controllers\CourseController;
+
 use App\Http\Controllers\Frontend\AdminController;
 use App\Http\Controllers\Frontend\UserController;
+
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SemesterController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,6 +36,18 @@ Route::middleware(['auth','verified'])->group(function() {
     Route::delete('dashboard/logout', [AdminController::class, 'logout'])->name("logout_user");
     Route::resource('users', UserController::class)->names("users");
 });
+
+
+Route::controller(CareerController::class)->group(function () {
+    Route::get('/careers', 'index');
+});
+Route::controller(CourseController::class)->group(function () {
+    Route::get('/courses', 'index');
+});
+Route::controller(SemesterController::class)->group(function () {
+    Route::get('/semesters', 'index');
+});
+
 
 
 /* Route::get('backend', function() {
