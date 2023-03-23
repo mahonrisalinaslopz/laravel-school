@@ -2,8 +2,8 @@
 <html lang="en">
 
 <head>
-    <script src="cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css"></script>
-    <script src="cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     @include('frontend.Layout.common-head')
 </head>
 
@@ -17,8 +17,8 @@
         @include('frontend.Layout.footer')
     </main>
 
-        @include('frontend.Layout.common-end')
-        @stack('custom-scripts')
+    @include('frontend.Layout.common-end')
+    @stack('custom-scripts')
 </body>
 
 </html>

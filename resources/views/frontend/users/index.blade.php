@@ -1,6 +1,6 @@
 @extends('frontend.Layout.app')
 @section('main-content')
-    <table id="users" class="display" style="width:100%">
+    <table id="users" class="table table-striped" >
         <thead>
             <tr>
                 <th>Nombre</th>
@@ -16,13 +16,12 @@
             @endforeach
         </tbody>
     </table>
-@endsection
-@push('custom-scripts')
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
     <script>
-      let table = new DataTable('#users')
-
         $(document).ready(function() {
             $('#users').DataTable();
         });
     </script>
-@endpush
+@endsection
