@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -15,15 +16,12 @@ class UserController extends Controller
     public function index()
     {
         $teachers = DB::table('users')
-        ->join("teachers", "users.id", "=", "teachers.user_id")
-        // ->leftJoin("teachers", "users.id", "=", "teachers.user_id")
-        // ->select('*')
-        ->get();
+            ->join("teachers", "users.id", "=", "teachers.user_id")
+            ->get();
 
-        $students =DB::table('users')
-        ->join("students", "users.id", "=", "students.user_id")
-        ->get()
-        ;
+        $students = DB::table('users')
+            ->join("students", "users.id", "=", "students.user_id")
+            ->get();
 
         $totalUsers = [];
 
@@ -35,8 +33,12 @@ class UserController extends Controller
             $totalUsers[] = $student;
         }
 
-        return view("frontend.users.index", ["users" => $totalUsers]);
-        // return $users;
+        $roles = Role::all();
+
+        return view("frontend.users.index", [
+            "users" => $totalUsers,
+            "roles" => $roles
+        ]);
     }
 
     /**
@@ -52,7 +54,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $request;
     }
 
     /**

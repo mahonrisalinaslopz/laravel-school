@@ -7,7 +7,7 @@
         <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/material-dashboard/pages/dashboard "
             target="_blank">
             <img src="../assets/img/logo-ct.png" class="navbar-brand-img h-100" alt="main_logo">
-            <span class="ms-1 font-weight-bold text-white">Material Dashboard 2</span>
+            <span class="ms-1 font-weight-bold text-white">Bienvenido</span>
         </a>
     </div>
     <hr class="horizontal light mt-0 mb-2">
@@ -30,7 +30,7 @@
                 </x-nav-link>
             </li>
 
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a class="nav-link text-white " href="../pages/billing.html">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">receipt_long</i>
@@ -89,14 +89,20 @@
                     </div>
                     <span class="nav-link-text ms-1">Sign Up</span>
                 </a>
-            </li>
+            </li> --}}
         </ul>
     </div>
     <div class="sidenav-footer position-absolute w-100 bottom-0 ">
         <div class="mx-3">
-            <a class="btn bg-gradient-primary mt-4 w-100"
-                href="https://www.creative-tim.com/product/material-dashboard-pro?ref=sidebarfree"
-                type="button">Upgrade to pro</a>
+            <form method="POST" action="{{ route('logout_user') }}">
+                @csrf
+                @method('delete')
+
+                <button type="submit" class="btn bg-gradient-primary mt-4 w-100">
+                    <i class="fa fa-user me-sm-1"></i>
+                    <span class="d-sm-inline d-none">Logout</span>
+                </button>
+            </form>
         </div>
     </div>
 </aside>

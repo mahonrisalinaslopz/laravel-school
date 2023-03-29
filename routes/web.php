@@ -30,11 +30,11 @@ Route::get('/dashboard', function () {
     return view('frontend.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware(['auth','verified'])->group(function() {
+Route::middleware(['auth', 'verified'])->group(function () {
     // Route::get('dashboard',[AdminController::class,'dashboard']);
     Route::resource('dashboard', AdminController::class)->only("index")->names("admin");
     Route::delete('dashboard/logout', [AdminController::class, 'logout'])->name("logout_user");
-    Route::resource('users', UserController::class)->names("users");
+    Route::resource('users', UserController::class)->only("index", "store")->names("users");
 });
 
 
@@ -60,4 +60,4 @@ Route::controller(SemesterController::class)->group(function () {
 //     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 // });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
