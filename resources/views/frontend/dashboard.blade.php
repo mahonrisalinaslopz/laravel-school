@@ -1,6 +1,14 @@
 @extends('frontend.Layout.app')
 @section('main-content')
-        <div class="container-fluid py-4">
+
+      <div class=" mt-5 col-md-10">
+        <div class="h-100 p-5 bg-light border rounded-3">
+          <h1>Bienvenido <span>User</span></h1>
+          <p>Or, keep it light and add a border for some added definition to the boundaries of your content. Be sure to look under the hood at the source HTML here as we've adjusted the alignment and sizing of both column's content for equal-height.</p>
+          <button class="btn btn-outline-secondary" type="button">Ver</button>
+        </div>
+      </div>
+        <!-- <div class="container-fluid py-4">
             <div class="row">
                 <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
                     <div class="card">
@@ -589,7 +597,7 @@
                     </div>
                 </div>
             </footer>
-        </div>
+        </div> -->
 @endsection
 @push('custom-scripts')
 @endpush
