@@ -34,7 +34,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Route::get('dashboard',[AdminController::class,'dashboard']);
     Route::resource('dashboard', AdminController::class)->only("index")->names("admin");
     Route::delete('dashboard/logout', [AdminController::class, 'logout'])->name("logout_user");
-    Route::resource('users', UserController::class)->only("index", "store")->names("users");
+    Route::resource('users', UserController::class)->only("index", "store", "destroy")->names("users");
 });
 
 

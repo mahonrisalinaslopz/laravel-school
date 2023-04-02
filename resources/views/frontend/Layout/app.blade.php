@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">   
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>   
     
-    @include('frontend.Layout.common-head')
+    <title>Universidad</title>
 </head>
 
 <body class="g-sidenav-show  bg-gray-200">
