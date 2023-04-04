@@ -62,7 +62,7 @@ class UserController extends Controller
             "nombre" => "required",
             "codigo" => "required",
             "email" => "required|email",
-            "phone" => "required|numeric",
+            "phone" => "required",
             "password" => "required",
         ]);
 
@@ -133,7 +133,59 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+
+        $validator = Validator::make($request->all(), [
+            "new_apellidos" => "required",
+            "new_nombre" => "required",
+            "new_email" => "required|email",
+            "new_phone" => "required",
+            "new_rol" => "required",
+        ]);
+
+        $user = User::find($id);
+
+        // Corroborar si el nombre del rol existe
+        $roles = Role::all();
+        $arrayRoles = [];
+        foreach ($roles as $rol) {
+            $arrayRoles[] = $rol->name;
+        }
+        $newRol = $request->new_rol;
+        $responseExists = array_search($newRol, $arrayRoles, true);
+
+        // Asignar el nuevo rol
+        if ($responseExists) {
+            foreach ($arrayRoles as $rol) {
+                $user->removeRole($rol);
+            }
+            $user->assignRole($newRol);
+        } else {
+            return redirect()->route("users.index")->with("error_form_edit", "El rol que seleccionaste no existe");
+        }
+        // ACÁ FALTARÍA MOVER LOS DATOS DE LA TABLA EN EL ROL QUE SE ENCUENTRA A LA DEL NUEVO ROL. EJ: DE MAESTRO A ALUMNO
+
+        if (Teacher::where("user_id", $id)->first()) {
+            $dataUser = Teacher::where("user_id", $id)->first();
+        } else {
+            $dataUser = Student::where("user_id", $id)->first();
+        }
+
+        if ($validator->fails()) {
+            $errors = $validator->errors();
+            return redirect()->route("users.index")->with("error_form_edit", "El formulario para editar los datos del usuario $dataUser->name $dataUser->last_name tiene errores o está incompleto.")->withErrors($errors);
+        } else {
+            $user->email = $request->new_email;
+            if ($request->new_password !== null && $request->new_password !== "") {
+                $user->password = bcrypt($request->new_password);
+            }
+            $user->save();
+
+            $dataUser->last_name = $request->new_apellidos;
+            $dataUser->name = $request->new_nombre;
+            $dataUser->phone = $request->new_phone;
+            $dataUser->save();
+            return redirect()->route("users.index")->with("success_form_edit", "Datos del usuario $dataUser->name $dataUser->last_name actualizados correctamente.");
+        }
     }
 
     public function destroy(string $id)

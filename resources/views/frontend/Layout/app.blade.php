@@ -4,7 +4,8 @@
 <head>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">   
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>   
-    
+    <script src="https://kit.fontawesome.com/a5f11d31b0.js" crossorigin="anonymous"></script>
+
     <title>Universidad</title>
 </head>
 
