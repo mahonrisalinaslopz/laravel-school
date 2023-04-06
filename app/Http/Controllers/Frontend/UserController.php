@@ -128,12 +128,8 @@ class UserController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
-
         $validator = Validator::make($request->all(), [
             "new_apellidos" => "required",
             "new_nombre" => "required",
@@ -144,46 +140,86 @@ class UserController extends Controller
 
         $user = User::find($id);
 
-        // Corroborar si el nombre del rol existe
-        $roles = Role::all();
-        $arrayRoles = [];
-        foreach ($roles as $rol) {
-            $arrayRoles[] = $rol->name;
-        }
-        $newRol = $request->new_rol;
-        $responseExists = array_search($newRol, $arrayRoles, true);
-
-        // Asignar el nuevo rol
-        if ($responseExists) {
-            foreach ($arrayRoles as $rol) {
-                $user->removeRole($rol);
-            }
-            $user->assignRole($newRol);
-        } else {
-            return redirect()->route("users.index")->with("error_form_edit", "El rol que seleccionaste no existe");
-        }
-        // ACÁ FALTARÍA MOVER LOS DATOS DE LA TABLA EN EL ROL QUE SE ENCUENTRA A LA DEL NUEVO ROL. EJ: DE MAESTRO A ALUMNO
-
+        // Corroboramos si es que la data es de un maestro o un alumno
         if (Teacher::where("user_id", $id)->first()) {
             $dataUser = Teacher::where("user_id", $id)->first();
         } else {
             $dataUser = Student::where("user_id", $id)->first();
         }
 
+        // Manejamos la falla de la validación
         if ($validator->fails()) {
             $errors = $validator->errors();
             return redirect()->route("users.index")->with("error_form_edit", "El formulario para editar los datos del usuario $dataUser->name $dataUser->last_name tiene errores o está incompleto.")->withErrors($errors);
         } else {
+            // Actualizo los primeros datos del formulario
             $user->email = $request->new_email;
             if ($request->new_password !== null && $request->new_password !== "") {
                 $user->password = bcrypt($request->new_password);
             }
             $user->save();
+            
+            // Validamos si es que el rol enviado desde el formulario es igual al que ya tiene el usuario
+            $rolesUser = $user->getRoleNames();
+            if ($rolesUser[0] !== $request->new_rol) {
+                // Corroborar si el nombre del rol existe
+                $roles = Role::all();
+                $arrayRoles = []; // Guardo el nombre de los roles en un array
+                foreach ($roles as $rol) {
+                    $arrayRoles[] = $rol->name;
+                }
+
+                // Corroboro si es que el rol que recibí de el formulario existe en el array que contiene todos los roles.
+                $newRol = $request->new_rol;
+                $responseExists = in_array($newRol, $arrayRoles, true);
+
+                // Manejo las acciones en base a si existe o no el nuevo rol
+                if ($responseExists) {
+                    // Remuevo todos los roles para que esté libre de errores
+                    foreach ($arrayRoles as $rol) {
+                        $user->removeRole($rol);
+                    }
+                    // Asigno el nuevo rol
+                    $user->assignRole($newRol);
+
+                    switch ($newRol !== $rolesUser[0]) {
+                        case (($rolesUser[0] === "admin" || $rolesUser[0] === "teacher") && $newRol === "student"):
+                            $newStudent = new Student();
+                            $newStudent->user_id = $dataUser->user_id;
+                            $newStudent->name = $request->new_nombre;
+                            $newStudent->last_name = $request->new_apellidos;
+                            $newStudent->phone = $request->new_phone;
+                            $newStudent->official_code = fake()->unique()->ean8();
+                            $newStudent->save();
+
+                            $dataUser->delete();
+
+                            return redirect()->route("users.index")->with("success_form_edit", "Datos del usuario $dataUser->name $dataUser->last_name actualizados correctamente. Debido al cambio de rol a estudiante se le ha creado un nuevo código oficial: $newStudent->official_code.");
+                            break;
+
+                        case ($rolesUser[0] === "student" && ($newRol === "admin" || $newRol === "teacher")):
+                            $newTeacher = new Teacher();
+                            $newTeacher->user_id = $dataUser->user_id;
+                            $newTeacher->name = $request->new_nombre;
+                            $newTeacher->last_name = $request->new_apellidos;
+                            $newTeacher->phone = $request->new_phone;
+                            $newTeacher->save();
+
+                            $dataUser->delete();
+
+                            return redirect()->route("users.index")->with("success_form_edit", "Datos del usuario $dataUser->name $dataUser->last_name actualizados correctamente. Debido al cambio de rol se ha eliminado el código oficial.");
+                            break;
+                    }
+                } else {
+                    return redirect()->route("users.index")->with("error_form_edit", "El rol que seleccionaste no existe");
+                }
+            }
 
             $dataUser->last_name = $request->new_apellidos;
             $dataUser->name = $request->new_nombre;
             $dataUser->phone = $request->new_phone;
             $dataUser->save();
+
             return redirect()->route("users.index")->with("success_form_edit", "Datos del usuario $dataUser->name $dataUser->last_name actualizados correctamente.");
         }
     }

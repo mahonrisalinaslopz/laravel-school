@@ -168,7 +168,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="mb-3 row">
-                                                            <label for="phone"
+                                                            <label for="new_phone"
                                                                 class="col-sm-2 col-form-label">Teléfono</label>
                                                             <div class="col-sm-9">
                                                                 <input required name="new_phone" type="text"
